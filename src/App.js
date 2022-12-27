@@ -7,6 +7,7 @@ import MyTask from './Components/Pages/MyTask/MyTask';
 import CompletedTask from './Components/Pages/CompletedTask/CompletedTask';
 import SignIn from './Components/Pages/SignIn/SignIn';
 import SignUp from './Components/Pages/SignUp/SignUp';
+import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 
 function App() {
   const router = createBrowserRouter([
@@ -24,11 +25,11 @@ function App() {
         },
         {
           path: '/myTask',
-          element: <MyTask/>
+          element: <PrivateRoute><MyTask/></PrivateRoute>
         },
         {
           path: '/completedTask',
-          element: <CompletedTask/>
+          element: <PrivateRoute><CompletedTask/></PrivateRoute>
         },
         {
           path: '/signin',

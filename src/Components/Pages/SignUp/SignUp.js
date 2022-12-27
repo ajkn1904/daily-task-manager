@@ -18,6 +18,26 @@ const SignUp = () => {
         return <p className='text-red-700'>Loading ...</p>
     }
 
+    const storeUser = (name, email) => {
+        const user = {
+            name,
+            email
+        }
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                navigate('/')
+            })
+    }
+
+
     const handleProfile = (data) => {
         const userInfo = {
             displayName: data.name
@@ -26,7 +46,8 @@ const SignUp = () => {
         userProfileUpdate(userInfo)
             .then(() => {
                 setLoading(false)
-                navigate('/')
+                //navigate('/')
+                storeUser(data.name, data.email)
             })
             .catch((error) => setSignUpError(error.message))
     }
@@ -38,7 +59,8 @@ const SignUp = () => {
                 const user = res.user
                 toast.success("Registration Successful")
                 setLoading(false)
-                navigate('/')
+                //navigate('/')
+                storeUser(user.displayName, user.email)
             })
             .catch((error) => setSignUpError(error.message))
     }
