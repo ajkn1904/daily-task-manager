@@ -1,23 +1,74 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { FaGoogle } from 'react-icons/fa'
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Context/AuthProvider';
+import { GoogleAuthProvider } from 'firebase/auth';
+import { toast } from 'react-hot-toast';
 
 const SignUp = () => {
     const { register, formState: { errors }, handleSubmit } = useForm()
+    const { createUser, continueWithProvider,
+        userProfileUpdate, loading, setLoading } = useContext(AuthContext);
+    const googleProvider = new GoogleAuthProvider();
+    const navigate = useNavigate()
+    const [signUpError, setSignUpError] = useState('')
 
-    const handleGoogleLogin = () => {}
+    if (loading) {
+        return <p className='text-red-700'>Loading ...</p>
+    }
+
+    const handleProfile = (data) => {
+        const userInfo = {
+            displayName: data.name
+        }
+
+        userProfileUpdate(userInfo)
+            .then(() => {
+                setLoading(false)
+                navigate('/')
+            })
+            .catch((error) => setSignUpError(error.message))
+    }
 
 
-    const handleRegister = data => {
-        console.log(data)
+    const handleGoogleSignUp = () => {
+        continueWithProvider(googleProvider)
+            .then(res => {
+                const user = res.user
+                toast.success("Registration Successful")
+                setLoading(false)
+                navigate('/')
+            })
+            .catch((error) => setSignUpError(error.message))
+    }
+
+
+
+    const handleSignUp = data => {
+        if (data.password !== data.confirmPassword) {
+            setSignUpError('Your password did not match.')
+                ('Your password did not match.')
+            return setSignUpError('Your password did not match.')
+                ;
+        }
+        setSignUpError('')
+        createUser(data.email, data.password)
+            .then(res => {
+                const user = res.user
+                console.log(user)
+                toast.success("Registration Successful")
+                handleProfile(data)
+            }
+            )
+            .catch(error => setSignUpError(error.message))
     }
 
 
     return (
         <>
             <h1 className='text-3xl font-semibold text-center my-14'>Sign Up Here</h1>
-            <form onSubmit={handleSubmit(handleRegister)} className='max-w-md mx-auto border px-5 py-10 rounded-lg my-14'>
+            <form onSubmit={handleSubmit(handleSignUp)} className='max-w-md mx-auto border px-5 py-10 rounded-lg my-14'>
                 <label className="label">
                     <span className="label-text">Name</span>
                 </label>
@@ -58,6 +109,7 @@ const SignUp = () => {
                 {errors.confirmPassword && <p className='text-error'>{errors.confirmPassword?.message}</p>}
 
 
+                <small className='text-red-600'>{signUpError}</small>
 
 
                 <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">SIGN UP</button>
@@ -70,7 +122,7 @@ const SignUp = () => {
                     <p className="absolute left-1/2 px-4 bg-white -translate-x-1/2 dark:bg-gray-900">Or</p>
                 </div>
 
-                <button onClick={handleGoogleLogin} className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 flex items-center justify-center w-full"><FaGoogle className='mr-2' /> <span>CONTINUE WITH GOOGLE</span></button>
+                <button onClick={handleGoogleSignUp} className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 flex items-center justify-center w-full"><FaGoogle className='mr-2' /> <span>CONTINUE WITH GOOGLE</span></button>
 
 
 

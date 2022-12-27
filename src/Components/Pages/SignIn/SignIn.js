@@ -1,16 +1,51 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaGoogle } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Context/AuthProvider';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 const SignIn = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
+    const [signInError, setSignInError] = useState('');
+    const { userLogin, continueWithProvider, loading, setLoading } = useContext(AuthContext);
+    const googleProvider = new GoogleAuthProvider()
+    const location = useLocation()
+    const navigate = useNavigate()
+    const from = location.state?.from?.pathName || '/'
+   
+    if (loading) {
+        return <p className='text-red-700'>Loading ...</p>
+    }
 
-    const handleGoogleLogin = () => { }
+
+    const handleGoogleLogin = () => {
+        continueWithProvider(googleProvider)
+            .then(res => {
+                const user = res.user;
+                console.log(user);
+                navigate(from, {replace:true})
+            })
+            .catch(error => setSignInError(error.message))
+    }
 
     const handleLogin = (data) => {
-        console.log(data)
+        userLogin(data.email, data.password)
+            .then(res => {
+                const user = res.user
+                console.log(user);
+                setSignInError('')
+                navigate(from, {replace:true})
+
+            })
+            .catch(error => {
+                setSignInError(error.message)
+                setLoading(false)
+
+            })
     }
+
+
     return (
         <>
             <h1 className='text-3xl font-semibold text-center my-14'>Sign In Now</h1>
@@ -41,6 +76,8 @@ const SignIn = () => {
 
                 <small className='text-red-600'>{ }</small>
 
+
+                <small className='text-red-600'>{signInError}</small>
 
 
                 <div className="flex flex-col w-full border-opacity-50">
