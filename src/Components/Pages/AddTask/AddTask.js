@@ -19,70 +19,79 @@ const AddTask = () => {
     }
 
 
-    const addTAskToDB = tasks => {
-        fetch('http://localhost:5000/tasks', {
-            method: 'POST',
-            headers: {
-                "content-type": "application/json",
-            },
-            body: JSON.stringify(tasks)
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                toast.success('Your tasks added Successfully')
-                setProcessing(false)
-                navigate('/myTask')
-            })
-    }
-
 
     const handleAddTasks = (data) => {
         setProcessing(true)
         const image = data.image[0]
         const formData = new FormData()
 
-        if (data.image[0]) {
-
+        if(data.image[0]){
+            
             formData.append('image', image)
             const url = `https://api.imgbb.com/1/upload?&key=${imgHostingKey}`
+        
+
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imgData => {
+                if (imgData.success) {
 
 
-            fetch(url, {
-                method: 'POST',
-                body: formData
-            })
-                .then(res => res.json())
-                .then(imgData => {
-                    if (imgData.success) {
-
-
-                        const tasks = {
-                            cat_id: data.cat_id,
-                            taskName: data.taskName,
-                            image: imgData.data.url,
-                            description: data.description,
-                            userName: data.userName,
-                            userEmail: data.userEmail,
-                        }
-                        addTAskToDB(tasks)
-
+                    const tasks = {
+                        cat_id: data.cat_id,
+                        taskName: data.taskName,
+                        image: imgData.data.url,
+                        description: data.description,      
+                        userName: data.userName,
+                        userEmail: data.userEmail, 
                     }
-                })
+
+                    fetch('http://localhost:5000/tasks', {
+                        method: 'POST',
+                        headers: {
+                            "content-type": "application/json",
+                        },
+                        body: JSON.stringify(tasks)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data)
+                            toast.success('Your tasks added Successfully')
+                            setProcessing(false)
+                            navigate('/media')
+                        })
+                }
+            })
         }
-        else {
+        else{
             const tasks = {
                 cat_id: data.cat_id,
                 taskName: data.taskName,
                 image: null,
-                description: data.description,
+                description: data.description,      
                 userName: data.userName,
-                userEmail: data.userEmail,
+                userEmail: data.userEmail, 
             }
-            addTAskToDB(tasks)
-        }
-
-
+            fetch('http://localhost:5000/tasks', {
+                        method: 'POST',
+                        headers: {
+                            "content-type": "application/json",
+                        },
+                        body: JSON.stringify(tasks)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data)
+                            toast.success('Your tasks added Successfully')
+                            setProcessing(false)
+                            navigate('/myTask')
+                        })
+                }
+           
+        
     }
 
 
@@ -96,14 +105,14 @@ const AddTask = () => {
                     <form onSubmit={handleSubmit(handleAddTasks)}>
 
 
-                        <label className="label">
+                    <label className="label">
                             <span className="label-text">Name</span>
                         </label>
                         <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-7" defaultValue={user?.displayName}  {...register("userName")} />
 
 
 
-                        <label className="label">
+                    <label className="label">
                             <span className="label-text">Email</span>
                         </label>
                         <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-7" defaultValue={user?.email}  {...register("userEmail")} />

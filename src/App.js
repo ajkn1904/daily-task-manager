@@ -8,6 +8,7 @@ import CompletedTask from './Components/Pages/CompletedTask/CompletedTask';
 import SignIn from './Components/Pages/SignIn/SignIn';
 import SignUp from './Components/Pages/SignUp/SignUp';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
+import Media from './Components/Pages/Media/Media';
 
 function App() {
   const router = createBrowserRouter([
@@ -26,6 +27,10 @@ function App() {
         {
           path: '/myTask',
           element: <PrivateRoute><MyTask/></PrivateRoute>
+        },
+        {
+          path: '/media',
+          element: <PrivateRoute><Media/></PrivateRoute>
         },
         {
           path: '/completedTask',

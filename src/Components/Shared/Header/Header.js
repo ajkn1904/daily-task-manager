@@ -37,6 +37,9 @@ const Header = () => {
                             <Link to="/myTask" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-blue-700 hover:text-white md:p-3 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 font-semibold">MY TASK</Link>
                         </li>
                         <li>
+                            <Link to="/media" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-blue-700 hover:text-white md:p-3 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 font-semibold">MEDIA</Link>
+                        </li>
+                        <li>
                             <Link to="/completedTask" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-blue-700 hover:text-white md:p-3 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 font-semibold">COMPLETED TASK</Link>
                         </li>
 
