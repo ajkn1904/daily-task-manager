@@ -5,8 +5,10 @@ import TaskCard from '../../Shared/TaskCard/TaskCard';
 
 const MyTask = () => {
     const { user } = useContext(AuthContext)
+    
+    
     //loading data
-    const { data: textTasks = [], isLoading } = useQuery({
+    const { data: textTasks = [], isLoading, refetch } = useQuery({
         queryKey: ['tasks'],
         queryFn: async () => {
             const res = await fetch(`http://localhost:5000/text/tasks?email=${user?.email}`)
@@ -19,15 +21,19 @@ const MyTask = () => {
         return <p className='text-red-700'>Loading ...</p>
     }
 
-    console.log(textTasks)
+    
 
     return (
         <div className='w-[80%] mx-auto min-h-screen my-20'>
             <h1 className='text-4xl text-center font-semibold mb-10'>My Tasks</h1>
+            
+
             <div className='grid grid-flow-col grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-5'>{
-                textTasks.map(taskData => <TaskCard taskData={taskData} key={taskData._id} />)
+                textTasks.map(taskData => <TaskCard taskData={taskData} key={taskData._id} refetch={refetch} />)
             }
             </div>
+
+
         </div>
     );
 };

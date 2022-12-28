@@ -1,25 +1,111 @@
-import { Dropdown } from 'flowbite-react';
-import React from 'react';
+import React, { useState } from 'react';
+import { Dropdown, Label, Modal } from 'flowbite-react';
 import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 
-const TaskCard = ({ taskData }) => {
-    console.log(taskData)
+const TaskCard = ({ taskData, refetch }) => {
 
-    const { _id, image, taskName, userName, email, description } = taskData
+    const { _id, image, taskName, description } = taskData;
+    const { register, formState: { errors }, handleSubmit } = useForm();
+    const [processing, setProcessing] = useState(false)
+    const [visible, setVisible] = useState(false)
+
+
+
+    const handleModalOpen = () => {
+        setVisible(true)
+    }
+    const handleModalOff = () => {
+        setVisible(false)
+        refetch()
+    }
+
+
+
+    const handleTasksData = data => {
+        setProcessing(true)
+        
+        fetch(`http://localhost:5000/tasks/${data.id}`, {
+            method: 'PUT',
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(result => {
+
+                //confirming response
+                if (result.modifiedCount > 0) {
+                    setProcessing(false)
+                    toast.success("Task Edited Successfully.")
+                    handleModalOff()
+                    console.log(result)
+                }
+            })
+    }
+
+
 
     return (
 
         <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
             <div className="flex justify-end px-4 py-4">
-                <Dropdown inline={true} label="">
-                   
+                <Dropdown inline={true} label="" className='hover:bg-blue-200 dark:hover:bg-gray-600 dark:hover:text-white'>
+
                     <Dropdown.Item>
-                        <a href="/" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
+                        <Label onClick={handleModalOpen} className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white">Edit</Label>
+                        <Modal
+                            show={visible}
+                            size="md"
+                            popup={true}
+                            onClose={handleModalOff}
+                        >
+                            <Modal.Header />
+                            <Modal.Body>
+                                <form onSubmit={handleSubmit(handleTasksData)}>
+                                    <label className="label">
+                                        <span className="label-text">Task info</span>
+                                    </label>
+                                    <input type="text" className="bg-gray-50 border border-gray-100 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white mb-7" value={_id} readOnly {...register("id")} />
+
+
+                                    <label className="label">
+                                        <span className="label-text">Task Name</span>
+                                    </label>
+                                    <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-7" defaultValue={taskName} {...register("taskName", {
+                                        required: 'Photo is required'
+                                    })} />
+
+                                    {errors.taskName && <p className='text-error'>{errors.taskName?.message}</p>}
+
+
+
+
+                                    <label className="label">
+                                        <span className="label-text">Description</span>
+                                    </label>
+                                    <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-7" defaultValue={description} {...register("description", {
+                                        required: 'Photo is required'
+                                    })} />
+
+                                    {errors.description && <p className='text-error'>{errors.description?.message}</p>}
+
+
+                                    <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit" disabled={processing}>
+                                        {processing ? 'Processing' : 'Submit'}
+                                    </button>
+                                </form>
+
+
+                            </Modal.Body>
+                        </Modal>
                     </Dropdown.Item>
                     <Dropdown.Item>
-                    <a href="/" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white">Delete</a>
+                        <a href="/" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white">Delete</a>
                     </Dropdown.Item>
-                    
+
                 </Dropdown>
             </div>
 
@@ -32,7 +118,7 @@ const TaskCard = ({ taskData }) => {
                 }
 
                 <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{taskName}</h5>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mx-5 mb-2">{description.slice(0, 20) + '...  '}
+                <p className="text-sm text-gray-500 dark:text-gray-400 mx-5 mb-2">{description?.slice(0, 20) + '...  '}
                     <Link to="/" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Details</Link>
                 </p>
 
