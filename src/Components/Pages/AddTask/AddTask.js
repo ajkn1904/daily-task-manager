@@ -47,6 +47,7 @@ const AddTask = () => {
                         description: data.description,      
                         userName: data.userName,
                         userEmail: data.userEmail, 
+                        imageStatus:true
                     }
 
                     fetch('http://localhost:5000/tasks', {
@@ -73,7 +74,8 @@ const AddTask = () => {
                 image: null,
                 description: data.description,      
                 userName: data.userName,
-                userEmail: data.userEmail, 
+                userEmail: data.userEmail,
+                imageStatus: false 
             }
             fetch('http://localhost:5000/tasks', {
                         method: 'POST',
