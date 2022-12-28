@@ -1,10 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FaGoogle } from 'react-icons/fa'
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { toast } from 'react-hot-toast';
+import useToken from '../../Shared/Hooks/useToken';
 
 const SignUp = () => {
     const { register, formState: { errors }, handleSubmit } = useForm()
@@ -12,7 +13,18 @@ const SignUp = () => {
         userProfileUpdate, loading, setLoading } = useContext(AuthContext);
     const googleProvider = new GoogleAuthProvider();
     const navigate = useNavigate()
-    const [signUpError, setSignUpError] = useState('')
+    const [signUpError, setSignUpError] = useState('');
+    const [createdUserEmail, setCreatedUserEmail] = useState('')
+    const [token] = useToken(createdUserEmail)
+
+
+    useEffect(() => {
+        if (token) {
+            setLoading(false)
+            navigate('/')
+        }
+    },[token, navigate])
+
 
     if (loading) {
         return <p className='text-red-700'>Loading ...</p>
@@ -33,7 +45,8 @@ const SignUp = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                navigate('/')
+                //navigate('/')
+                setCreatedUserEmail(email)
             })
     }
 

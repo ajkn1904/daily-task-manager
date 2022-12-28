@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaGoogle } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 import { GoogleAuthProvider } from 'firebase/auth';
+import useToken from '../../Shared/Hooks/useToken';
 
 const SignIn = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -12,8 +13,18 @@ const SignIn = () => {
     const googleProvider = new GoogleAuthProvider()
     const location = useLocation()
     const navigate = useNavigate()
-    const from = location.state?.from?.pathName || '/'
+    const from = location.state?.from?.pathName || '/';
+    const [signInUserEmail, setSignInUserEmail] = useState('')
+    const [token] = useToken(signInUserEmail)
    
+
+    useEffect(() => {
+        if(token){
+            navigate(from, {replace:true})
+        }
+    },[token, from, navigate])
+
+
     if (loading) {
         return <p className='text-red-700'>Loading ...</p>
     }
@@ -24,7 +35,9 @@ const SignIn = () => {
             .then(res => {
                 const user = res.user;
                 console.log(user);
-                navigate(from, {replace:true})
+                //navigate(from, {replace:true})
+                setSignInUserEmail(user.email)
+
             })
             .catch(error => setSignInError(error.message))
     }
@@ -35,7 +48,8 @@ const SignIn = () => {
                 const user = res.user
                 console.log(user);
                 setSignInError('')
-                navigate(from, {replace:true})
+                //navigate(from, {replace:true})
+                setSignInUserEmail(data.email)
 
             })
             .catch(error => {

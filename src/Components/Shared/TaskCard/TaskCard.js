@@ -51,8 +51,11 @@ const TaskCard = ({ taskData, refetch }) => {
     const handleDelete = id => {
         const doDelete = window.confirm('Do you want to delete this product?');
         if (doDelete) {
-            fetch(`http://localhost:5000/dltTasks/${id}`, {
-                method: 'DELETE'
+            fetch(`http://localhost:5000/tasks/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                }
             })
                 .then(res => res.json())
                 .then(data => {
