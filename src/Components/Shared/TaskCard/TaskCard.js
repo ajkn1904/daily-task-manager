@@ -25,7 +25,7 @@ const TaskCard = ({ taskData, refetch }) => {
 
     const handleTasksData = data => {
         setProcessing(true)
-        
+
         fetch(`http://localhost:5000/tasks/${data.id}`, {
             method: 'PUT',
             headers: {
@@ -48,21 +48,34 @@ const TaskCard = ({ taskData, refetch }) => {
 
 
 
+    const handleDelete = id => {
+        const doDelete = window.confirm('Do you want to delete this product?');
+        if (doDelete) {
+            fetch(`http://localhost:5000/dltTasks/${id}`, {
+                method: 'DELETE'
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    if (data.deletedCount === 1) {
+                        toast.error("Deleted Successfully")
+                        refetch()
+                    }
+                })
+        }
+    }
+
+
     return (
 
-        <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+        <div className="w-[95%] bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
             <div className="flex justify-end px-4 py-4">
                 <Dropdown inline={true} label="" className='hover:bg-blue-200 dark:hover:bg-gray-600 dark:hover:text-white'>
 
                     <Dropdown.Item>
                         <Label onClick={handleModalOpen} className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white">Edit</Label>
-                        <Modal
-                            show={visible}
-                            size="md"
-                            popup={true}
-                            onClose={handleModalOff}
-                        >
-                            <Modal.Header />
+
+                        <Modal show={visible} size="md" popup={true} onClose={handleModalOff} >
                             <Modal.Body>
                                 <form onSubmit={handleSubmit(handleTasksData)}>
                                     <label className="label">
@@ -82,7 +95,6 @@ const TaskCard = ({ taskData, refetch }) => {
 
 
 
-
                                     <label className="label">
                                         <span className="label-text">Description</span>
                                     </label>
@@ -98,30 +110,35 @@ const TaskCard = ({ taskData, refetch }) => {
                                     </button>
                                 </form>
 
-
                             </Modal.Body>
                         </Modal>
                     </Dropdown.Item>
+
                     <Dropdown.Item>
-                        <a href="/" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white">Delete</a>
+                        <Label onClick={() => handleDelete(_id)} className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white">Delete</Label>
                     </Dropdown.Item>
 
                 </Dropdown>
             </div>
 
 
+
+
+
             <div className="flex flex-col items-center pb-10">
 
                 {image !== null &&
-                    <img className="p-8 rounded-t-lg" src={image} alt="product" />
+                    <img className="p-2 w-full h-[150px] rounded-t-lg" src={image} alt="product" />
 
                 }
 
-                <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{taskName}</h5>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mx-5 mb-2">{description?.slice(0, 20) + '...  '}
-                    <Link to="/" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Details</Link>
-                </p>
-
+                <div className='mx-5 min-h-[100px]'>
+                    <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{taskName}</h5>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{description?.slice(0, 20) + '...  '}
+                        <Link to="/" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Details</Link>
+                    </p>
+                </div>
+                
                 <div className="flex mt-4 space-x-3 md:mt-6">
                     <a href="/" className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Completed</a>
                 </div>

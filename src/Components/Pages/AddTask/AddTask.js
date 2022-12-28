@@ -160,7 +160,7 @@ const AddTask = () => {
                                         {processing ? 'Processing' : 'Add Task'}
                                     </button>
                                     :
-                                    <Link to='/signin' className='font-medium text-blue-600 dark:text-blue-500 hover:underline'>To add task <span className='text-blue-600'>sign in</span> First</Link>
+                                    <Link to='/signin' className='text-center text-xl font-medium'>To add task <span className='text-blue-600 dark:text-blue-500 hover:underline'>sign in</span> First</Link>
 
                             }
 
