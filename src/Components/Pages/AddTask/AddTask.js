@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
+import { Link } from 'react-router-dom';
 
 
 const AddTask = () => {
@@ -25,75 +26,75 @@ const AddTask = () => {
         const image = data.image[0]
         const formData = new FormData()
 
-        if(data.image[0]){
-            
+        if (data.image[0]) {
+
             formData.append('image', image)
             const url = `https://api.imgbb.com/1/upload?&key=${imgHostingKey}`
-        
-
-        fetch(url, {
-            method: 'POST',
-            body: formData
-        })
-            .then(res => res.json())
-            .then(imgData => {
-                if (imgData.success) {
 
 
-                    const tasks = {
-                        cat_id: data.cat_id,
-                        taskName: data.taskName,
-                        image: imgData.data.url,
-                        description: data.description,      
-                        userName: data.userName,
-                        userEmail: data.userEmail, 
-                        imageStatus:true
-                    }
-
-                    fetch('http://localhost:5000/tasks', {
-                        method: 'POST',
-                        headers: {
-                            "content-type": "application/json",
-                        },
-                        body: JSON.stringify(tasks)
-                    })
-                        .then(res => res.json())
-                        .then(data => {
-                            console.log(data)
-                            toast.success('Your tasks added Successfully')
-                            setProcessing(false)
-                            navigate('/media')
-                        })
-                }
+            fetch(url, {
+                method: 'POST',
+                body: formData
             })
+                .then(res => res.json())
+                .then(imgData => {
+                    if (imgData.success) {
+
+
+                        const tasks = {
+                            cat_id: data.cat_id,
+                            taskName: data.taskName,
+                            image: imgData.data.url,
+                            description: data.description,
+                            userName: data.userName,
+                            email: data.userEmail,
+                            imageStatus: true
+                        }
+
+                        fetch('http://localhost:5000/tasks', {
+                            method: 'POST',
+                            headers: {
+                                "content-type": "application/json",
+                            },
+                            body: JSON.stringify(tasks)
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                console.log(data)
+                                toast.success('Your tasks added Successfully')
+                                setProcessing(false)
+                                navigate('/media')
+                            })
+                    }
+                })
         }
-        else{
+        else {
             const tasks = {
                 cat_id: data.cat_id,
                 taskName: data.taskName,
                 image: null,
-                description: data.description,      
+                description: data.description,
                 userName: data.userName,
-                userEmail: data.userEmail,
-                imageStatus: false 
+                email: data.userEmail,
+                imageStatus: false
             }
             fetch('http://localhost:5000/tasks', {
-                        method: 'POST',
-                        headers: {
-                            "content-type": "application/json",
-                        },
-                        body: JSON.stringify(tasks)
-                    })
-                        .then(res => res.json())
-                        .then(data => {
-                            console.log(data)
-                            toast.success('Your tasks added Successfully')
-                            setProcessing(false)
-                            navigate('/myTask')
-                        })
-                }
-           
-        
+                method: 'POST',
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify(tasks)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    toast.success('Your tasks added Successfully')
+                    setProcessing(false)
+                    navigate('/myTask')
+                })
+        }
+
+
     }
 
 
@@ -102,19 +103,19 @@ const AddTask = () => {
 
             <h1 className='text-2xl font-bold text-center mt-10 mb-4'>ADD A tasks</h1>
             <div className='flex justify-center items-center mb-20 p-4'>
-                <div className='card shadow-xl w-11/12 bg-slate-100 p-7'>
+                <div className='card shadow-xl w-10/12 bg-slate-100 p-7 rounded-md'>
 
                     <form onSubmit={handleSubmit(handleAddTasks)}>
 
 
-                    <label className="label">
+                        <label className="label">
                             <span className="label-text">Name</span>
                         </label>
                         <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-7" defaultValue={user?.displayName}  {...register("userName")} />
 
 
 
-                    <label className="label">
+                        <label className="label">
                             <span className="label-text">Email</span>
                         </label>
                         <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-7" defaultValue={user?.email}  {...register("userEmail")} />
@@ -152,10 +153,16 @@ const AddTask = () => {
 
 
                         <div className="flex flex-col w-full border-opacity-50 my-5">
+                            {
+                                user?.uid ?
 
-                            <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit" disabled={processing}>{processing ? 'Processing' : 'Add Task'}</button>
+                                    <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit" disabled={processing}>
+                                        {processing ? 'Processing' : 'Add Task'}
+                                    </button>
+                                    :
+                                    <Link to='/signin' className='font-medium text-blue-600 dark:text-blue-500 hover:underline'>To add task <span className='text-blue-600'>sign in</span> First</Link>
 
-
+                            }
 
                         </div>
 
