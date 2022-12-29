@@ -6,7 +6,7 @@ import CompletedTaskCard from './CompletedTaskCard';
 const CompletedTask = () => {
     const {user} =  useContext(AuthContext)
 
-    const url = `http://localhost:5000/completed/tasks?email=${user?.email}`
+    const url = `https://daily-task-manager-server.vercel.app/completed/tasks?email=${user?.email}`
 
     //loading data
     const { data: completeTasks = [], isLoading, refetch } = useQuery({

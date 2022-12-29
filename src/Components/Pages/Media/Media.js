@@ -7,7 +7,7 @@ const Media = () => {
     const { user } = useContext(AuthContext)
 
 
-    const url = `http://localhost:5000/media/tasks?email=${user?.email}` 
+    const url = `https://daily-task-manager-server.vercel.app/media/tasks?email=${user?.email}` 
 
     //loading data
     const { data: textTasks = [], isLoading, refetch } = useQuery({

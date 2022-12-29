@@ -36,7 +36,7 @@ function App() {
         {
           path: '/details/:id',
           loader: async ({params}) => {
-            return fetch(`http://localhost:5000/tasks/${params.id}`)
+            return fetch(`https://daily-task-manager-server.vercel.app/tasks/${params.id}`)
           },
           element: <TaskDetails/>
         },

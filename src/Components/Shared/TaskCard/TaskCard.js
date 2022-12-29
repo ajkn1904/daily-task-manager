@@ -27,7 +27,7 @@ const TaskCard = ({ taskData, refetch }) => {
         setProcessing(true)
         const taskData = {taskName: data.taskName, description: data.description, comment: ""}
 
-        fetch(`http://localhost:5000/tasks/${data.id}`, {
+        fetch(`https://daily-task-manager-server.vercel.app/tasks/${data.id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`,
@@ -53,7 +53,7 @@ const TaskCard = ({ taskData, refetch }) => {
     const handleDelete = id => {
         const doDelete = window.confirm('Do you want to delete this product?');
         if (doDelete) {
-            fetch(`http://localhost:5000/tasks/${id}`, {
+            fetch(`https://daily-task-manager-server.vercel.app/tasks/${id}`, {
                 method: 'DELETE',
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -73,7 +73,7 @@ const TaskCard = ({ taskData, refetch }) => {
 
 
     const handleComplete = id => {
-        fetch(`http://localhost:5000/complete/tasks/${id}`, {
+        fetch(`https://daily-task-manager-server.vercel.app/complete/tasks/${id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`,

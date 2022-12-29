@@ -51,7 +51,7 @@ const AddTask = () => {
                             imageStatus: true
                         }
 
-                        fetch('http://localhost:5000/tasks', {
+                        fetch('https://daily-task-manager-server.vercel.app/tasks', {
                             method: 'POST',
                             headers: {
                                 "content-type": "application/json",
@@ -78,7 +78,7 @@ const AddTask = () => {
                 email: data.userEmail,
                 imageStatus: false
             }
-            fetch('http://localhost:5000/tasks', {
+            fetch('https://daily-task-manager-server.vercel.app/tasks', {
                 method: 'POST',
                 headers: {
                     "content-type": "application/json",
