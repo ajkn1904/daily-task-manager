@@ -96,7 +96,7 @@ const TaskCard = ({ taskData, refetch }) => {
 
     return (
 
-        <div className="w-[95%] bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+        <div className="w-[95%] border rounded-lg shadow-md dark:bg-gray-800">
             <div className="flex justify-end px-4 py-4">
                 <Dropdown inline={true} label="" className='hover:bg-blue-200 dark:hover:bg-gray-600 dark:hover:text-white'>
 
@@ -164,8 +164,8 @@ const TaskCard = ({ taskData, refetch }) => {
                 }
 
                 <div className='mx-3 min-h-[100px]'>
-                    <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{taskName}</h5>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{description?.slice(0, 15) + '...'}<Link to={`/details/${_id}`} className="text-blue-600 dark:text-blue-500 hover:underline">details</Link>
+                    <h5 className="mb-1 text-xl font-medium  dark:text-white">{taskName}</h5>
+                    <p className="text-sm mb-2">{description?.slice(0, 15) + '...'}<Link to={`/details/${_id}`} className="text-blue-600 dark:text-blue-500 hover:underline">details</Link>
                     </p>
                 </div>
 

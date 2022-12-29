@@ -97,11 +97,11 @@ const AddTask = () => {
 
 
     return (
-        <>
+        <div className='min-h-screen'>
 
             <h1 className='text-2xl font-bold text-center mt-10 mb-4'>ADD A tasks</h1>
             <div className='flex justify-center items-center mb-20 p-4'>
-                <div className='card shadow-xl w-10/12 bg-slate-100 p-7 rounded-md'>
+                <div className='card shadow-xl w-10/12 p-7 rounded-md border border-gray-50'>
 
                     <form onSubmit={handleSubmit(handleAddTasks)}>
 
@@ -172,7 +172,7 @@ const AddTask = () => {
             </div>
 
 
-        </>
+        </div>
     );
 };
 

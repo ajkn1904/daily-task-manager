@@ -1,6 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --hue: 0;
+  --sat: 0%;
+  --title-color: hsl(var(--hue), var(--sat), 20%);
+  --title-color-dark: hsl(var(--hue), var(--sat), 0%);
+  --text-color: hsl(var(--hue), var(--sat), 46%);
+  --container-color: rgb(255, 255, 255);
+  --body-color: #f6f8f9;
+  --border-color: #f6f8f9;
+
+}
+
+[data-theme="dark"] {
+  --hue: 0;
+  --sat: 0%;
+  --title-color:#ffff;
+  --title-color-light: hsl(var(--hue), var(--sat), 98%%);
+  --text-color: rgb(236, 229, 229);
+  --container-color: var(--primary);
+  --body-color: #161d29;
+  --border-color: #8f8f8f;
+background-color: var(--body-color);
+color: var(--text-color);
+}
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

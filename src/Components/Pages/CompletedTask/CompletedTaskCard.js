@@ -90,7 +90,7 @@ const CompletedTaskCard = ({ taskData, refetch }) => {
 
 
     return (
-        <div className="w-[95%] bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 relative">
+        <div className="w-[95%] border rounded-lg shadow-md relative">
 
 
             <div className="flex justify-end px-4 py-4">
@@ -106,9 +106,9 @@ const CompletedTaskCard = ({ taskData, refetch }) => {
 
                 }
 
-                <div className='mx-3 min-h-[80px]'>
-                    <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{taskName}</h5>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{description?.slice(0, 15) + '...'}<Link to={`/details/${_id}`} className="text-blue-600 dark:text-blue-500 hover:underline">details</Link>
+                <div className='w-[85%] mx-auto min-h-[80px]'>
+                    <h5 className="mb-1 text-xl font-medium">{taskName}</h5>
+                    <p className="text-sm mb-2">{description?.slice(0, 15) + '...'}<Link to={`/details/${_id}`} className="text-blue-600 dark:text-blue-500 hover:underline">details</Link>
                     </p>
                     {comment &&
                         <div className="my-5">
@@ -123,7 +123,7 @@ const CompletedTaskCard = ({ taskData, refetch }) => {
                 <div className='mx-3 mt-2 mb-8'>
                     <form onSubmit={handleSubmit(handleTasksData)} className='flex justify-between items-center gap-2'>
 
-                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Comment' {...register("comment", {
+                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Comment' {...register("comment", {
                             required: 'Comment is required'
                         })} />
 
