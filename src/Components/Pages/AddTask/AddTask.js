@@ -42,8 +42,7 @@ const AddTask = () => {
 
 
                         const tasks = {
-                            cat_id: data.cat_id,
-                            taskName: data.taskName,
+                            askName: data.taskName,
                             image: imgData.data.url,
                             description: data.description,
                             userName: data.userName,
@@ -70,7 +69,6 @@ const AddTask = () => {
         }
         else {
             const tasks = {
-                cat_id: data.cat_id,
                 taskName: data.taskName,
                 image: null,
                 description: data.description,
