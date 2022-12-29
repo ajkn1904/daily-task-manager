@@ -1,4 +1,4 @@
-import { Badge, Button, Dropdown, Label, Modal } from 'flowbite-react';
+import { Badge, Button, Label } from 'flowbite-react';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
@@ -7,11 +7,10 @@ import { ImCross } from 'react-icons/im';
 import { Link, useNavigate } from 'react-router-dom';
 
 const CompletedTaskCard = ({ taskData, refetch }) => {
-    const { _id, image, taskName, description, comment, isComplete } = taskData
+    const { _id, image, taskName, description, comment } = taskData
     const navigate = useNavigate()
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [processing, setProcessing] = useState(false)
-    const [visible, setVisible] = useState(false)
 
 
 
@@ -54,7 +53,7 @@ const CompletedTaskCard = ({ taskData, refetch }) => {
                     toast.error("Task Not Completed")
                     refetch()
                     console.log(result)
-                    navigate(-1)
+                    navigate('/myTask')
                 }
             })
     }
@@ -92,8 +91,10 @@ const CompletedTaskCard = ({ taskData, refetch }) => {
 
     return (
         <div className="w-[95%] bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 relative">
+
+
             <div className="flex justify-end px-4 py-4">
-                <ImCross className='text-red-500 hover:text-red-700 hover:bg-red-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white rounded-full h-8 w-8 p-2'></ImCross>
+                <ImCross onClick={() => handleDelete(_id)} className='text-red-500 hover:text-red-700 hover:bg-red-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white rounded-full h-8 w-8 p-2'></ImCross>
             </div>
 
 
