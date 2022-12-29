@@ -25,6 +25,7 @@ const TaskCard = ({ taskData, refetch }) => {
 
     const handleTasksData = data => {
         setProcessing(true)
+        const taskData = {taskName: data.taskName, description: data.description, comment: ""}
 
         fetch(`http://localhost:5000/tasks/${data.id}`, {
             method: 'PUT',
@@ -32,7 +33,7 @@ const TaskCard = ({ taskData, refetch }) => {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`,
                 "content-type": "application/json"
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(taskData)
         })
             .then(res => res.json())
             .then(result => {
@@ -103,6 +104,9 @@ const TaskCard = ({ taskData, refetch }) => {
                         <Label onClick={handleModalOpen} className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white">Edit</Label>
 
                         <Modal show={visible} size="md" popup={true} onClose={handleModalOff} >
+
+                            <Modal.Header />
+
                             <Modal.Body>
                                 <form onSubmit={handleSubmit(handleTasksData)}>
                                     <label className="label">
@@ -115,10 +119,10 @@ const TaskCard = ({ taskData, refetch }) => {
                                         <span className="label-text">Task Name</span>
                                     </label>
                                     <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-7" defaultValue={taskName} {...register("taskName", {
-                                        required: 'Photo is required'
+                                        required: 'Task Name is required'
                                     })} />
 
-                                    {errors.taskName && <p className='text-error'>{errors.taskName?.message}</p>}
+                                    {errors.taskName && <small className='text-red-500'>{errors.taskName?.message}</small>}
 
 
 
@@ -126,10 +130,10 @@ const TaskCard = ({ taskData, refetch }) => {
                                         <span className="label-text">Description</span>
                                     </label>
                                     <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-7" defaultValue={description} {...register("description", {
-                                        required: 'Photo is required'
+                                        required: 'Description is required'
                                     })} />
 
-                                    {errors.description && <p className='text-error'>{errors.description?.message}</p>}
+                                    {errors.description && <small className='text-red-500'>{errors.description?.message}</small>}
 
 
                                     <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit" disabled={processing}>
@@ -166,11 +170,11 @@ const TaskCard = ({ taskData, refetch }) => {
                 </div>
 
                 <div className="flex mt-4 space-x-3 md:mt-6">
-                    { isComplete === true ?
-                    <Button disabled={true}>Completed</Button>
-                    :
+                    {isComplete === true ?
+                        <Button disabled={true}>Completed</Button>
+                        :
                         <button onClick={() => handleComplete(_id)} className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Completed</button>
-                    
+
                     }
                 </div>
 
