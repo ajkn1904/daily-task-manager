@@ -29,6 +29,7 @@ const TaskCard = ({ taskData, refetch }) => {
         fetch(`http://localhost:5000/tasks/${data.id}`, {
             method: 'PUT',
             headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`,
                 "content-type": "application/json"
             },
             body: JSON.stringify(data)
