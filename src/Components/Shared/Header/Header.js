@@ -51,7 +51,7 @@ const Header = ({switchTheme, theme}) => {
                             user?.uid ?
                                 <>
                                     <li><Link to='/' className="block py-2 pl-3 pr-4 rounded hover:bg-blue-700 hover:text-white md:p-3 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 font-semibold" onClick={handleSignOut}>SIGN OUT</Link></li>
-                                    <li className="block py-2 pl-3 pr-4 text-md font-bold italic text-center rounded-t-lg md:p-3 dark:text-white">{user?.displayName}</li>
+                                    <li className="block md:hidden lg:block py-2 pl-3 pr-4 text-md font-bold italic text-center rounded-t-lg md:p-3 dark:text-white">{user?.displayName}</li>
                                 </>
                                 :
                                 <>

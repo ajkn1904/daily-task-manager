@@ -27,7 +27,7 @@ const SignUp = () => {
 
 
     if (loading) {
-        return <p className='text-red-700'>Loading ...</p>
+        return <p className='text-red-700 min-h-[80vh]'>Loading ...</p>
     }
 
     const storeUser = (name, email) => {
