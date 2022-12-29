@@ -1,15 +1,18 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
+import { DarkThemeToggle, Flowbite } from 'flowbite-react';
 
 const Header = () => {
     const { user, userLogOut } = useContext(AuthContext)
+    const [darkToggle, setDarkToggle] = React.useState(false)
 
     const handleSignOut = () => {
         userLogOut()
             .then(() => { })
             .cath(error => console.log(error))
     }
+
 
     return (
         <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
@@ -60,6 +63,10 @@ const Header = () => {
                                     </li>
                                 </>
                         }
+
+                        <Flowbite>
+                            <DarkThemeToggle />
+                        </Flowbite>
                     </ul>
                 </div>
             </div>

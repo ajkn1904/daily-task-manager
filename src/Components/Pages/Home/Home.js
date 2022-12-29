@@ -39,9 +39,9 @@ const Home = () => {
 
 
     return (
-        <div className='min-h-[80vh] w-[90%] mx-auto'>
+        <div className='w-[90%] mx-auto'>
 
-            <div className="flex flex-col items-center bg-white md:flex-row-reverse hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+            <div className="min-h-[80vh] flex flex-col items-center bg-white md:flex-row-reverse hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
                 <img className="object-cover w-full rounded-t-lg h-96 md:w-[50%] md:rounded-none md:rounded-l-lg" src="https://i.ibb.co/N1HMrTr/Google-Tasks-Your-Personal-Task-Manager.png" alt="" />
 
 
