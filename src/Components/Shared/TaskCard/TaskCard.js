@@ -136,13 +136,12 @@ const TaskCard = ({ taskData, refetch }) => {
 
                 }
 
-                <div className='mx-5 min-h-[100px]'>
+                <div className='mx-3 min-h-[100px]'>
                     <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{taskName}</h5>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{description?.slice(0, 20) + '...  '}
-                        <Link to="/" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Details</Link>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{description?.slice(0, 15) + '...'}<Link to={`/details/${_id}`} className="text-blue-600 dark:text-blue-500 hover:underline">details</Link>
                     </p>
                 </div>
-                
+
                 <div className="flex mt-4 space-x-3 md:mt-6">
                     <a href="/" className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Completed</a>
                 </div>

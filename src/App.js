@@ -9,6 +9,7 @@ import SignIn from './Components/Pages/SignIn/SignIn';
 import SignUp from './Components/Pages/SignUp/SignUp';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 import Media from './Components/Pages/Media/Media';
+import TaskDetails from './Components/Pages/TaskDetails/TaskDetails';
 
 function App() {
   const router = createBrowserRouter([
@@ -31,6 +32,10 @@ function App() {
         {
           path: '/media',
           element: <PrivateRoute><Media/></PrivateRoute>
+        },
+        {
+          path: '/details/:id',
+          element: <TaskDetails/>
         },
         {
           path: '/completedTask',
