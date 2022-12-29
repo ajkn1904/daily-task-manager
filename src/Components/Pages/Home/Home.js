@@ -42,7 +42,7 @@ const Home = () => {
         <div className='w-[90%] mx-auto'>
 
             <div className="min-h-screen flex flex-col items-center md:flex-row-reverse dark:border-gray-700 dark:bg-gray-800">
-                <img className="object-cover w-full rounded-t-lg h-96 md:w-[50%] md:rounded-none md:rounded-l-lg" src="https://i.ibb.co/N1HMrTr/Google-Tasks-Your-Personal-Task-Manager.png" alt="" />
+                <img className="object-cover w-full rounded-t-lg h-96 md:w-[50%] md:rounded-none md:rounded-l-lg" src="https://i.ibb.co/jDTZxCd/checklist-01-removebg-preview.png" alt="" />
 
 
                 <div className="flex flex-col justify-between p-4 leading-normal mx-auto">
