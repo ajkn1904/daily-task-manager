@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { Dropdown, Label, Modal } from 'flowbite-react';
-import { Link } from 'react-router-dom';
+import { Button, Dropdown, Label, Modal } from 'flowbite-react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 
 const TaskCard = ({ taskData, refetch }) => {
 
-    const { _id, image, taskName, description } = taskData;
+    const { _id, image, taskName, description, isComplete } = taskData;
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [processing, setProcessing] = useState(false)
     const [visible, setVisible] = useState(false)
-
+    const navigate = useNavigate()
 
 
     const handleModalOpen = () => {
@@ -68,6 +68,29 @@ const TaskCard = ({ taskData, refetch }) => {
                 })
         }
     }
+
+
+
+    const handleComplete = id => {
+        fetch(`http://localhost:5000/complete/tasks/${id}`, {
+            method: 'PUT',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`,
+                "content-type": "application/json"
+            },
+        })
+            .then(res => res.json())
+            .then(result => {
+                if (result.modifiedCount > 0) {
+                    toast.success("Task Completed")
+                    refetch()
+                    console.log(result)
+                    navigate('/completedTask')
+                }
+            })
+    }
+
+
 
 
     return (
@@ -143,7 +166,12 @@ const TaskCard = ({ taskData, refetch }) => {
                 </div>
 
                 <div className="flex mt-4 space-x-3 md:mt-6">
-                    <a href="/" className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Completed</a>
+                    { isComplete === true ?
+                    <Button disabled={true}>Completed</Button>
+                    :
+                        <button onClick={() => handleComplete(_id)} className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Completed</button>
+                    
+                    }
                 </div>
 
 

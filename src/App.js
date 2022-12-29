@@ -35,6 +35,9 @@ function App() {
         },
         {
           path: '/details/:id',
+          loader: async ({params}) => {
+            return fetch(`http://localhost:5000/tasks/${params.id}`)
+          },
           element: <TaskDetails/>
         },
         {
