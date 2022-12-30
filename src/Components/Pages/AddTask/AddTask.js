@@ -101,7 +101,7 @@ const AddTask = () => {
 
             <h1 className='text-2xl font-bold text-center mt-10 mb-4'>ADD A tasks</h1>
             <div className='flex justify-center items-center mb-20 p-4'>
-                <div className='card shadow-xl w-10/12 p-7 rounded-md border border-gray-50'>
+                <div className='card shadow-xl w-10/12 md:w-6/12 p-7 rounded-md border border-gray-50'>
 
                     <form onSubmit={handleSubmit(handleAddTasks)}>
 
