@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 import { Link } from 'react-router-dom';
 
+import styles from './myStyle.module.scss'
+
 
 const AddTask = () => {
 
@@ -13,7 +15,7 @@ const AddTask = () => {
     const navigate = useNavigate()
     const imgHostingKey = process.env.REACT_APP_imgbb_key;
     const [processing, setProcessing] = useState(false)
-const date = new Date()
+    const date = new Date()
 
     if (loading) {
         return <p className='text-red-700 min-h-[80vh]'>Loading ...</p>
@@ -103,31 +105,38 @@ const date = new Date()
 
             <h1 className='text-2xl font-bold text-center mt-10 mb-4'>ADD A tasks</h1>
             <div className='flex justify-center items-center mb-20 p-4'>
-                <div className='card shadow-xl w-10/12 md:w-6/12 p-7 rounded-md border border-gray-50'>
+                <div className='card shadow-xl w-10/12 md:w-6/12 p-7 rounded-md border border-gray-50 mb-10'>
 
                     <form onSubmit={handleSubmit(handleAddTasks)}>
-
+                    
+                    <div className={styles.myStyle}>
 
                         <label className="label">
                             <span className="label-text">Name</span>
                         </label>
-                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-7" defaultValue={user?.displayName}  {...register("userName")} />
+                        <input type="text" className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-7" defaultValue={user?.displayName}  {...register("userName")} />
 
 
 
                         <label className="label">
                             <span className="label-text">Email</span>
                         </label>
-                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-7" defaultValue={user?.email}  {...register("userEmail")} />
+                        <input type="text" className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-7" defaultValue={user?.email}  {...register("userEmail")} />
 
 
 
                         <label className="label">
                             <span className="label-text">Task Name</span>
                         </label>
-                        <input type="text" className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-7"  {...register("taskName", {
-                            required: 'Photo is required'
-                        })} />
+                        
+
+                            <input type="text" className="text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-7"  {...register("taskName", {
+                                required: 'Photo is required'
+                            })} />
+
+                        
+
+
 
                         {errors.taskName && <p className='text-error'>{errors.taskName?.message}</p>}
 
@@ -137,7 +146,7 @@ const date = new Date()
                         <label className="label">
                             <span className="label-text">Description</span>
                         </label>
-                        <textarea type="textarea" className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full min-h-[80px] p-2.5 mb-7"  {...register("description", {
+                        <textarea type="textarea" className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full min-h-[80px] p-2.5 mb-7"  {...register("description", {
                             required: 'Photo is required'
                         })} />
 
@@ -148,8 +157,10 @@ const date = new Date()
                         <label className="label">
                             <span className="label-text">Task's image</span>
                         </label>
-                        <input type="file" className="file-input file-input-bordered w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block mb-7" {...register("image")} />
-
+                        <input type="file" className="file-input file-input-bordered w-full border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block mb-7" {...register("image")} />
+                        
+                        
+                        </div>
 
 
                         <div className="flex flex-col w-full border-opacity-50 my-5">

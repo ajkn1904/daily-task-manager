@@ -6,6 +6,10 @@ import { BiSend } from 'react-icons/bi';
 import { ImCross } from 'react-icons/im';
 import { Link, useNavigate } from 'react-router-dom';
 
+import styles from '../AddTask/myStyle.module.scss'
+
+
+
 const CompletedTaskCard = ({ taskData, reFetch, setReFetch }) => {
     const { _id, image, taskName, description, comment, date } = taskData
     const navigate = useNavigate()
@@ -113,7 +117,7 @@ const CompletedTaskCard = ({ taskData, reFetch, setReFetch }) => {
                     </p>
                     {comment &&
                         <div className="mb-5">
-                            <Badge color="gray" size="sm">{comment}</Badge>
+                            <Badge color="success" size="sm">{comment}</Badge>
 
                             <Label></Label>
                         </div>
@@ -124,11 +128,13 @@ const CompletedTaskCard = ({ taskData, reFetch, setReFetch }) => {
                 <div className='mx-3 mt-2 mb-8'>
                     <form onSubmit={handleSubmit(handleTasksData)} className='flex justify-center items-center gap-1'>
 
-                        <input type="text" className="bg-gray-100  border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[80%] p-1" placeholder='Comment' {...register("comment", {
-                            required: 'Comment is required'
-                        })} />
+                        <div className={styles.myStyle}>
 
+                            <input type="text" className="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[80%] p-1" placeholder='Comment' {...register("comment", {
+                                required: 'Comment is required'
+                            })} />
 
+                        </div>
 
                         <button type="submit" disabled={processing} className='hover:text-blue-700'>
                             <BiSend className='w-5 h-5' />

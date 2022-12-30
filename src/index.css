@@ -10,7 +10,7 @@
   --text-color: hsl(var(--hue), var(--sat), 46%);
   --container-color: rgb(255, 255, 255);
   --body-color: #f6f8f9;
-  --border-color: #f6f8f9;
+  --border-color: #d1d5d7;
 
 }
 
@@ -22,7 +22,8 @@
   --text-color: rgb(236, 229, 229);
   --container-color: var(--primary);
   --body-color: #151f2c;
-  --border-color: #8f8f8f;
+  --border-color: #505766;
+  --background: #1a2d46;
 background-color: var(--body-color);
 color: var(--text-color);
 }

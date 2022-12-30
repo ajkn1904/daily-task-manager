@@ -5,6 +5,10 @@ import { BiSend } from 'react-icons/bi';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 
+import styles from '../AddTask/myStyle.module.scss'
+
+
+
 const Home = () => {
     const { user } = useContext(AuthContext)
     const navigate = useNavigate()
@@ -55,9 +59,13 @@ const Home = () => {
                             <span className="label-text">TODO</span>
                         </label>
 
-                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Add Task' {...register("taskName", {
-                            required: 'taskName is required'
-                        })} />
+
+                        <div className={styles.myStyle}>
+                            <input type="text" className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Add Task' {...register("taskName", {
+                                required: 'taskName is required'
+                            })} />
+                        </div>
+
                         {
                             user?.uid ?
                                 <button type="submit" disabled={processing} className='hover:text-blue-700'>

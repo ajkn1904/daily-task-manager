@@ -6,6 +6,10 @@ import { AuthContext } from '../../Context/AuthProvider';
 import { GoogleAuthProvider } from 'firebase/auth';
 import useToken from '../../Shared/Hooks/useToken';
 
+import styles from '../AddTask/myStyle.module.scss'
+import { Button } from 'flowbite-react';
+
+
 const SignIn = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [signInError, setSignInError] = useState('');
@@ -63,14 +67,14 @@ const SignIn = () => {
     return (
         <div className='min-h-screen'>
             <h1 className='text-3xl font-semibold text-center my-14'>Sign In Now</h1>
-            <form onSubmit={handleSubmit(handleLogin)} className='max-w-md mx-auto border px-5 py-10 rounded-lg my-14'>
+            <form onSubmit={handleSubmit(handleLogin)} className='max-w-md mx-auto border px-5 py-10 rounded-lg  mt-14 mb-28'>
 
-
+            <div className={styles.myStyle}>
 
                 <label className="label">
                     <span className="label-text">Email</span>
                 </label>
-                <input type="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-7" {...register("email", { required: "Email is required" })} />
+                <input type="email" className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-7" placeholder='Email' {...register("email", { required: "Email is required" })} />
 
                 {errors.email && <p className='text-error'>{errors.email?.message}</p>}
 
@@ -79,7 +83,7 @@ const SignIn = () => {
                 <label>
                     <span className="label-text">Password</span>
                 </label>
-                <input type="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-7" {...register("password",
+                <input type="password" className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-7" placeholder='Password' {...register("password",
                     {
                         required: "Password is required"
                     })} />
@@ -93,6 +97,7 @@ const SignIn = () => {
 
                 <small className='text-red-600'>{signInError}</small>
 
+</div>
 
                 <div className="flex flex-col w-full border-opacity-50">
 
@@ -104,7 +109,7 @@ const SignIn = () => {
                         <p className="absolute left-1/2 px-4 rounded-full text-black font-bold bg-white -translate-x-1/2 dark:bg-gray-900">Or</p>
                     </div>
 
-                    <button onClick={handleGoogleLogin} className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 flex items-center justify-center w-full"><FaGoogle className='mr-2' /> <span>CONTINUE WITH GOOGLE</span></button>
+                    <Button gradientDuoTone="cyanToBlue" onClick={handleGoogleLogin} className='w-full'><FaGoogle className='mr-2' /> <span>CONTINUE WITH GOOGLE</span></Button>
 
                 </div>
 
