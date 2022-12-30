@@ -6,7 +6,7 @@ import { toast } from 'react-hot-toast';
 
 const TaskCard = ({ taskData, reFetch, setReFetch }) => {
 
-    const { _id, image, taskName, description, isComplete } = taskData;
+    const { _id, image, taskName, description, isComplete, date } = taskData;
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [processing, setProcessing] = useState(false)
     const [visible, setVisible] = useState(false)
@@ -97,7 +97,8 @@ const TaskCard = ({ taskData, reFetch, setReFetch }) => {
     return (
 
         <div className="w-[95%] border rounded-lg shadow-md dark:bg-gray-800">
-            <div className="flex justify-end px-4 py-4">
+            <div className="flex justify-between px-4 py-4">
+                <small className='text-gray-500'>{date}</small>
                 <Dropdown inline={true} label="" className='hover:bg-blue-200 dark:hover:bg-gray-600 dark:hover:text-white'>
 
                     <Dropdown.Item>
@@ -163,7 +164,7 @@ const TaskCard = ({ taskData, reFetch, setReFetch }) => {
 
                 }
 
-                <div className='mx-3 min-h-[100px]'>
+                <div className='mx-auto w-[90%] min-h-[80px]'>
                     <h5 className="mb-1 text-xl font-medium  dark:text-white">{taskName}</h5>
                     <p className="text-sm mb-2">{description?.slice(0, 15) + '...'}<Link to={`/details/${_id}`} className="text-blue-600 dark:text-blue-500 hover:underline">details</Link>
                     </p>

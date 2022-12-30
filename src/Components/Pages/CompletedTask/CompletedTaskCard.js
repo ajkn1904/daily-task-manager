@@ -1,4 +1,4 @@
-import { Badge, Button, Label } from 'flowbite-react';
+import { Badge, Label } from 'flowbite-react';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
@@ -7,7 +7,7 @@ import { ImCross } from 'react-icons/im';
 import { Link, useNavigate } from 'react-router-dom';
 
 const CompletedTaskCard = ({ taskData, reFetch, setReFetch }) => {
-    const { _id, image, taskName, description, comment } = taskData
+    const { _id, image, taskName, description, comment, date } = taskData
     const navigate = useNavigate()
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [processing, setProcessing] = useState(false)
@@ -93,7 +93,8 @@ const CompletedTaskCard = ({ taskData, reFetch, setReFetch }) => {
         <div className="w-[95%] border rounded-lg shadow-md relative">
 
 
-            <div className="flex justify-end px-4 py-2">
+            <div className="flex justify-between px-4 py-2">
+                <small className='text-gray-500'>{date}</small>
                 <ImCross onClick={() => handleDelete(_id)} className='text-red-500 hover:text-red-700 hover:bg-red-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white rounded-full h-8 w-8 p-2'></ImCross>
             </div>
 
@@ -130,7 +131,7 @@ const CompletedTaskCard = ({ taskData, reFetch, setReFetch }) => {
 
 
                         <button type="submit" disabled={processing} className='hover:text-blue-700'>
-                            <BiSend className='w-5 h-5'/>
+                            <BiSend className='w-5 h-5' />
                         </button>
 
 
@@ -144,13 +145,13 @@ const CompletedTaskCard = ({ taskData, reFetch, setReFetch }) => {
 
 
             </div>
-                <div className="absolute bottom-0 w-full">
+            <div className="absolute bottom-0 w-full">
                 <button type="button" className="w-full border-b-white text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm py-2 text-center" onClick={() => handleNotComplete(_id)} >Not Completed</button>
 
-                    <button className="btn" ></button>
+                <button className="btn" ></button>
 
 
-                </div>
+            </div>
         </div>
 
     );

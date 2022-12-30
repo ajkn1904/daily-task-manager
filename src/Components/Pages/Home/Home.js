@@ -10,6 +10,7 @@ const Home = () => {
     const navigate = useNavigate()
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [processing, setProcessing] = useState(false)
+    const date = new Date()
 
     const handleTasksData = data => {
         const tasks = {
@@ -18,7 +19,8 @@ const Home = () => {
             description: "Description Not Available",
             userName: user.displayName,
             email: user.email,
-            imageStatus: false
+            imageStatus: false,
+            date: date.toDateString()
         }
         fetch('https://daily-task-manager-server.vercel.app/tasks', {
             method: 'POST',

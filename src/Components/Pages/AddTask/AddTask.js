@@ -13,7 +13,7 @@ const AddTask = () => {
     const navigate = useNavigate()
     const imgHostingKey = process.env.REACT_APP_imgbb_key;
     const [processing, setProcessing] = useState(false)
-
+const date = new Date()
 
     if (loading) {
         return <p className='text-red-700 min-h-[80vh]'>Loading ...</p>
@@ -42,12 +42,13 @@ const AddTask = () => {
 
 
                         const tasks = {
-                            askName: data.taskName,
+                            taskName: data.taskName,
                             image: imgData.data.url,
                             description: data.description,
                             userName: data.userName,
                             email: data.userEmail,
-                            imageStatus: true
+                            imageStatus: true,
+                            date: date.toDateString()
                         }
 
                         fetch('https://daily-task-manager-server.vercel.app/tasks', {
@@ -74,7 +75,8 @@ const AddTask = () => {
                 description: data.description,
                 userName: data.userName,
                 email: data.userEmail,
-                imageStatus: false
+                imageStatus: false,
+                date: date.toDateString()
             }
             fetch('https://daily-task-manager-server.vercel.app/tasks', {
                 method: 'POST',
