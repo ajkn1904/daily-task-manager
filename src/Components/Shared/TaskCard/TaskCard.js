@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 
-const TaskCard = ({ taskData, refetch }) => {
+const TaskCard = ({ taskData, reFetch, setReFetch }) => {
 
     const { _id, image, taskName, description, isComplete } = taskData;
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -18,7 +18,7 @@ const TaskCard = ({ taskData, refetch }) => {
     }
     const handleModalOff = () => {
         setVisible(false)
-        refetch()
+        setReFetch(!reFetch)
     }
 
 
@@ -64,7 +64,7 @@ const TaskCard = ({ taskData, refetch }) => {
                     console.log(data)
                     if (data.deletedCount === 1) {
                         toast.error("Deleted Successfully")
-                        refetch()
+                        setReFetch(!reFetch)
                     }
                 })
         }
@@ -84,7 +84,7 @@ const TaskCard = ({ taskData, refetch }) => {
             .then(result => {
                 if (result.modifiedCount > 0) {
                     toast.success("Task Completed")
-                    refetch()
+                    setReFetch(!reFetch)
                     console.log(result)
                     navigate('/completedTask')
                 }

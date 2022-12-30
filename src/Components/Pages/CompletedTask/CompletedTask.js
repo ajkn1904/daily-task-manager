@@ -1,15 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Context/AuthProvider';
-import { useQuery } from '@tanstack/react-query';
+//import { useQuery } from '@tanstack/react-query';
 import CompletedTaskCard from './CompletedTaskCard';
 
 const CompletedTask = () => {
     const {user} =  useContext(AuthContext)
+    const [completeTasks, setCompleteTasks] = useState([])
+    const [reFetch, setReFetch] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
 
-    const url = `https://daily-task-manager-server.vercel.app/completed/tasks?email=${user?.email}`
+  
 
     //loading data
-    const { data: completeTasks = [], isLoading, refetch } = useQuery({
+/*     const { data: completeTasks = [], isLoading, refetch } = useQuery({
         queryKey: ['tasks'],
         queryFn: async () => {
             const res = await fetch(url, {
@@ -21,11 +24,30 @@ const CompletedTask = () => {
             return data
         }
     })
+*/
+//console.log(completeTasks)
 
-    if (isLoading) {
-        return <p className='text-red-700 min-h-[80vh]'>Loading ...</p>
-    }
-    //console.log(completeTasks)
+
+useEffect(() => {
+    setIsLoading(true)
+    fetch(`https://daily-task-manager-server.vercel.app/completed/tasks?email=${user?.email}`, {
+        headers: {
+            authorization: `bearer ${localStorage.getItem('accessToken')}`
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+        setCompleteTasks(data)
+        setIsLoading(false)
+    })
+}, [reFetch, user?.email])
+
+
+
+if (isLoading) {
+    return <p className='text-red-700 min-h-[80vh]'>Loading ...</p>
+}
+
 
 
 
@@ -35,7 +57,7 @@ const CompletedTask = () => {
 
 
             <div className='grid grid-flow-row grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5'>
-                { completeTasks && completeTasks.map(taskData => <CompletedTaskCard taskData={taskData} key={taskData._id} refetch={refetch} />)
+                { completeTasks && completeTasks.map(taskData => <CompletedTaskCard taskData={taskData} key={taskData._id} reFetch={reFetch} setReFetch={setReFetch} />)
                 }
             </div>
 

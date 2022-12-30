@@ -109,21 +109,21 @@ const AddTask = () => {
                         <label className="label">
                             <span className="label-text">Name</span>
                         </label>
-                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-7" defaultValue={user?.displayName}  {...register("userName")} />
+                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-7" defaultValue={user?.displayName}  {...register("userName")} />
 
 
 
                         <label className="label">
                             <span className="label-text">Email</span>
                         </label>
-                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-7" defaultValue={user?.email}  {...register("userEmail")} />
+                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-7" defaultValue={user?.email}  {...register("userEmail")} />
 
 
 
                         <label className="label">
                             <span className="label-text">Task Name</span>
                         </label>
-                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-7"  {...register("taskName", {
+                        <input type="text" className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-7"  {...register("taskName", {
                             required: 'Photo is required'
                         })} />
 
@@ -135,7 +135,7 @@ const AddTask = () => {
                         <label className="label">
                             <span className="label-text">Description</span>
                         </label>
-                        <textarea type="textarea" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full min-h-[80px] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-7"  {...register("description", {
+                        <textarea type="textarea" className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full min-h-[80px] p-2.5 mb-7"  {...register("description", {
                             required: 'Photo is required'
                         })} />
 
@@ -146,7 +146,7 @@ const AddTask = () => {
                         <label className="label">
                             <span className="label-text">Task's image</span>
                         </label>
-                        <input type="file" className="file-input file-input-bordered w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-7" {...register("image")} />
+                        <input type="file" className="file-input file-input-bordered w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block mb-7" {...register("image")} />
 
 
 

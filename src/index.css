@@ -21,7 +21,7 @@
   --title-color-light: hsl(var(--hue), var(--sat), 98%%);
   --text-color: rgb(236, 229, 229);
   --container-color: var(--primary);
-  --body-color: #161d29;
+  --body-color: #151f2c;
   --border-color: #8f8f8f;
 background-color: var(--body-color);
 color: var(--text-color);

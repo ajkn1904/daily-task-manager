@@ -6,7 +6,7 @@ import { BiSend } from 'react-icons/bi';
 import { ImCross } from 'react-icons/im';
 import { Link, useNavigate } from 'react-router-dom';
 
-const CompletedTaskCard = ({ taskData, refetch }) => {
+const CompletedTaskCard = ({ taskData, reFetch, setReFetch }) => {
     const { _id, image, taskName, description, comment } = taskData
     const navigate = useNavigate()
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -29,7 +29,7 @@ const CompletedTaskCard = ({ taskData, refetch }) => {
                     console.log(data)
                     if (data.deletedCount === 1) {
                         toast.error("Deleted Successfully")
-                        refetch()
+                        setReFetch(!reFetch)
                     }
                 })
         }
@@ -51,7 +51,7 @@ const CompletedTaskCard = ({ taskData, refetch }) => {
             .then(result => {
                 if (result.modifiedCount > 0) {
                     toast.error("Task Not Completed")
-                    refetch()
+                    setReFetch(!reFetch)
                     console.log(result)
                     navigate('/myTask')
                 }
@@ -79,7 +79,7 @@ const CompletedTaskCard = ({ taskData, refetch }) => {
                 if (result.modifiedCount > 0) {
                     setProcessing(false)
                     toast.success("Comment Added Successfully.")
-                    refetch()
+                    setReFetch(!reFetch)
 
                     console.log(result)
                 }
