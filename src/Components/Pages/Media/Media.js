@@ -57,7 +57,7 @@ const Media = () => {
 
 
             <div className='grid grid-flow-row grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-5'>
-                { textTasks && textTasks.map(taskData => <TaskCard taskData={taskData} key={taskData._id}  reFetch={reFetch} setReFetch={setReFetch} />)
+                { textTasks && textTasks?.map(taskData => <TaskCard taskData={taskData} key={taskData._id}  reFetch={reFetch} setReFetch={setReFetch} />)
             }
             </div>
 

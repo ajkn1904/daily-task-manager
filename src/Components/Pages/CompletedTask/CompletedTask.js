@@ -57,7 +57,7 @@ if (isLoading) {
 
 
             <div className='grid grid-flow-row grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5'>
-                { completeTasks && completeTasks.map(taskData => <CompletedTaskCard taskData={taskData} key={taskData._id} reFetch={reFetch} setReFetch={setReFetch} />)
+                { completeTasks && completeTasks?.map(taskData => <CompletedTaskCard taskData={taskData} key={taskData._id} reFetch={reFetch} setReFetch={setReFetch} />)
                 }
             </div>
 
