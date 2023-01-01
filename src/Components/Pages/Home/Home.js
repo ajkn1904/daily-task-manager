@@ -45,9 +45,9 @@ const Home = () => {
 
 
     return (
-        <div className='w-[90%] mx-auto'>
+        <div className='w-[90%] mx-auto mt-16 sm:mt-16 md:mt-0'>
 
-            <div className="min-h-screen flex flex-col items-center md:flex-row-reverse dark:border-gray-700 dark:bg-gray-800">
+            <div className="min-h-[90vh] flex flex-col items-center md:flex-row-reverse dark:border-gray-700 dark:bg-gray-800">
                 <img className="object-cover w-full rounded-t-lg h-96 md:w-[50%] md:rounded-none md:rounded-l-lg" src="https://i.ibb.co/jDTZxCd/checklist-01-removebg-preview.png" alt="" />
 
 
@@ -61,7 +61,7 @@ const Home = () => {
 
 
                         <div className={styles.myStyle}>
-                            <input type="text" className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Add Task' {...register("taskName", {
+                            <input type="text" className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder='Add Task' {...register("taskName", {
                                 required: 'taskName is required'
                             })} />
                         </div>

@@ -1,8 +1,11 @@
 .myStyle{
     
-    input, textarea, div, Navbar{
+    input, textarea, div{
         background-color: var(--background);
-        border-color: var(--border-color)
+        border-color: var(--border-color);
     }
     
+    .navbar{
+        background-color: var(--navBg);
+    }
 }
