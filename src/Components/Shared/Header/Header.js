@@ -18,7 +18,7 @@ const Header = ({ switchTheme, theme }) => {
 
 
     return (
-        <Headroom className={styles.myStyle} style={{ webkitTransition: 'all .5s ease-in-out', mozTransition: 'all .5s ease-in-out', oTransition: 'all .5s ease-in-out', transition: 'all .5s ease-in-out' }}>
+        <Headroom className={styles.myStyle} style={{ WebkitTransition: 'all .5s ease-in-out', MozTransition: 'all .5s ease-in-out', OTransition: 'all .5s ease-in-out', transition: 'all .5s ease-in-out' }}>
             <Navbar className={`${styles.navbar}`}>
                 <div className="container flex flex-wrap items-center justify-between mx-auto">
                     <Link to="/" className="flex items-center">
