@@ -8,6 +8,7 @@ import useToken from '../../Shared/Hooks/useToken';
 
 import styles from '../AddTask/myStyle.module.scss'
 import { Button } from 'flowbite-react';
+import LoadingSpinner from '../../Shared/LoadingSpinner/LoadingSpinner';
 
 
 const SignIn = () => {
@@ -30,7 +31,7 @@ const SignIn = () => {
 
 
     if (loading) {
-        return <p className='text-red-700 min-h-[80vh]'>Loading ...</p>
+        return <p className='text-red-700 min-h-[80vh] text-center'><LoadingSpinner/></p>
     }
 
 

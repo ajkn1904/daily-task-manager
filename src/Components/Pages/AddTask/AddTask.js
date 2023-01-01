@@ -6,6 +6,7 @@ import { AuthContext } from '../../Context/AuthProvider';
 import { Link } from 'react-router-dom';
 
 import styles from './myStyle.module.scss'
+import LoadingSpinner from '../../Shared/LoadingSpinner/LoadingSpinner';
 
 
 const AddTask = () => {
@@ -18,7 +19,7 @@ const AddTask = () => {
     const date = new Date()
 
     if (loading) {
-        return <p className='text-red-700 min-h-[80vh]'>Loading ...</p>
+        return <p className='text-red-700 min-h-[80vh] text-center'><LoadingSpinner/></p>
     }
 
 

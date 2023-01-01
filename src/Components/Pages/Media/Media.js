@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Context/AuthProvider';
 //import { useQuery } from '@tanstack/react-query';
 import TaskCard from '../../Shared/TaskCard/TaskCard';
+import LoadingSpinner from '../../Shared/LoadingSpinner/LoadingSpinner';
 
 const Media = () => {
     const { user } = useContext(AuthContext)
@@ -45,7 +46,7 @@ const Media = () => {
 
 
     if (isLoading) {
-        return <p className='text-red-700 min-h-[80vh]'>Loading ...</p>
+        return <p className='text-red-700 min-h-[80vh] text-center'><LoadingSpinner/></p>
     }
 
 
